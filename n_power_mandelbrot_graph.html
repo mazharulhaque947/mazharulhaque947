@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scatter Plot</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <input id="n" type="number" placeholder="div in x axis (300 1000)"> <br>
+    <input id="m" type="number" placeholder="div in y axis (300 1000)"> <br>
+    <input id="k" type="number" placeholder="iteration (10 50)"> <br>
+    <input id="c0" type="number" step="any" placeholder="lower x axis value (-2 -1) "> <br>
+    <input id="c1" type="number" step="any" placeholder="upper x axis value (1 2)"> <br>
+    <input id="c2" type="number" step="any" placeholder="lower y axis value (-2 -1)"> <br>
+    <input id="c3" type="number" step="any" placeholder="upper y axis value (1 2)"> <br>
+    <input id="u" type="number" placeholder="power (2 10)"> <br>
+    <button id="generate">Generate Scatter Plot</button> <br>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        // Get the canvas element
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        // Function to calculate the distance
+        function calculateDistance(x, y) {
+            return Math.sqrt(x * x + y * y);
+        }
+
+        // Function to generate the scatter plot
+        function generateScatterPlot(n, m, k, c0, c1, c2, c3, u) {
+            var x = [];
+            var y = [];
+            var stepX = (c1 - c0) / n;
+            var stepY = (c3 - c2) / m;
+
+            // Initialize the c array
+            var c = new Array(1000).fill(0);
+            var a = new Array(1000).fill(0);
+            var b = new Array(1000).fill(0);
+            var nTemp = 20;
+
+            for (var i = 0; i < nTemp; i++) {
+                for (var j = 0; j < i + 1; j++) {
+                    if (j == 0) {
+                        b[j] = 1;
+                    } else if (j == i) {
+                        b[j] = 1;
+                    } else if (j > 0 && j < i) {
+                        b[j] = a[j] + a[j - 1];
+                    }
+                }
+
+                for (var j = 0; j < i + 1; j++) {
+                    a[j] = b[j];
+                    c[(((i + 0) * (i + 1)) / 2) + j] = a[j];
+                }
+            }
+
+            for (var i = c0; i < c1; i += stepX) {
+                for (var j = c2; j < c3; j += stepY) {
+                    var isValid = true;
+                    var d0 = i;
+                    var d2 = j;
+                    var d5 = 0;
+                    var d6 = 0;
+
+                    for (var l = 0; l < k; l++) {
+                        var d7 = d5;
+                        var d8 = d6;
+                        var d5Temp = d5;
+                        var d6Temp = d6;
+
+                        // Calculate d5 and d6 using the nano function
+                        var lTemp = u;
+                        lTemp = lTemp + 1;
+                        var kTemp = lTemp - 1;
+                        var d5New = 0;
+                        var d6New = 0;
+
+                        for (var p = 0; p < lTemp; p++) {
+                            var d5Calc = Math.pow(d5Temp, kTemp - p);
+                            var d6Calc = Math.pow(d6Temp, p);
+
+                            if (p % 4 == 0) {
+                                d5New = d5New + c[(((kTemp + 0) * (kTemp + 1)) / 2) + p] * d5Calc * d6Calc;
+                            } else if (p % 4 == 2) {
+                                d5New = d5New - c[(((kTemp + 0) * (kTemp + 1)) / 2) + p] * d5Calc * d6Calc;
+                            } else if (p % 4 == 1) {
+                                d6New = d6New + c[(((kTemp + 0) * (kTemp + 1)) / 2) + p] * d5Calc * d6Calc;
+                            } else if (p % 4 == 3) {
+                                d6New = d6New - c[(((kTemp + 0) * (kTemp + 1)) / 2) + p] * d5Calc * d6Calc;
+                            }
+                        }
+
+                        d5 = d5New;
+                        d6 = d6New;
+
+                        d5 = d0 + d5;
+                        d6 = d2 + d6;
+
+                        var z = calculateDistance(d5, d6);
+
+                        if (z > 5000 || z < -5000) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    if (isValid) {
+                        x.push(i);
+                        y.push(j);
+                    }
+                }
+            }
+
+            return { x: x, y: y };
+        }
+
+        // Generate the scatter plot
+        document.getElementById('generate').addEventListener('click', function() {
+            var n = parseInt(document.getElementById('n').value);
+            var m = parseInt(document.getElementById('m').value);
+            var k = parseInt(document.getElementById('k').value);
+            var c0 = parseFloat(document.getElementById('c0').value);
+            var c1 = parseFloat(document.getElementById('c1').value);
+            var c2 = parseFloat(document.getElementById('c2').value);
+            var c3 = parseFloat(document.getElementById('c3').value);
+            var u = parseInt(document.getElementById('u').value);
+
+            var data = generateScatterPlot(n, m, k, c0, c1, c2, c3, u);
+
+            // Find the min and max values for x and y to properly scale the graph
+            var minX = Math.min(...data.x);
+            var maxX = Math.max(...data.x);
+            var minY = Math.min(...data.y);
+            var maxY = Math.max(...data.y);
+
+            // Calculate scaling factors
+            var scaleX = (canvas.width - 40) / (maxX - minX);
+            var scaleY = (canvas.height - 40) / (maxY - minY);
+
+            // Calculate centers for the graph
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
+
+            // Clear the canvas before drawing
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw X and Y axes at the center of the canvas (optional)
+            ctx.beginPath();
+            ctx.moveTo(centerX - (canvas.width / 2), centerY);
+            ctx.lineTo(centerX + (canvas.width / 2), centerY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - (canvas.height / 2));
+            ctx.lineTo(centerX, centerY + (canvas.height / 2));
+            ctx.stroke();
+
+            // Plot the data points with scaling and centering
+            for (var i = 0; i < data.x.length; i++) {
+                var scaledX = (data.x[i] - minX) * scaleX + 20; // Add offset for margin
+                var scaledY = (maxY - data.y[i]) * scaleY + 20; // Flip Y axis and add margin
+                ctx.beginPath();
+                ctx.arc(scaledX, scaledY, 1, 0, 1 * Math.PI);
+                ctx.fillStyle = 'black';
+                ctx.fill();
+            }
+
+            console.log(data.x.length);
+            console.log(data.y.length);
+        });
+    </script>
+</body>
+</html>
