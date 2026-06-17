@@ -1,41 +1,219 @@
-<html>
-<head></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+       body{
+    font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero{
+    background: #0d6efd;
+    color: white;
+
+    padding: 100px 20px;
+    margin-bottom: 30px;
+}
+
+/* Box Model Example */
+.box-model-demo{
+
+    width: 100%;
+
+    padding: 20px;      /* inside space */
+
+    border: 3px solid black;
+
+    margin-top: 20px;   /* outside space */
+
+    background: #f8f9fa;
+}
+
+/* Cards */
+.card{
+    margin-top: 20px;
+    padding: 10px;
+
+    border: 1px solid #ddd;
+}
+
+/* Footer */
+.footer{
+    background: #212529;
+    color: white;
+
+    text-align: center;
+
+    padding: 20px;
+    margin-top: 50px;
+}
+    </style>
+    <title>My Portfolio</title>
+</head>
 <body>
-<h1> CURRICULUM VITAE </h1>
-<p>mane : Md Mazharul Haque Sifat </p> 
-<p>email: mazharulhaque94721@gmail.com </p> 
-<img src="download.jpg">
-<p>about : I am a 2nd year CSE student . I do Competitive programming . i like to explore technology </p> 
-<p>codeforces account: <a href="https://codeforces.com/profile/mazharulhaque94721"> mazharulhaque94721  </a> </p> 
-<p>github account: <a href="https://github.com/mazharulhaque947"> mazharulhaque947 </a> </p> 
 
-<h3>skills</h3>
-<ul type="square">
-<li>     c++</li>
-<li>  java</li>
-<li>  html</li>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Your Name</a>
 
-</ul>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#skills">Skills</a>
+                <a class="nav-link" href="#projects">Projects</a>
+                <a class="nav-link" href="#Education">Education</a>
+                <a class="nav-link" href="#hobies">hobies</a>
+                 
 
-<h3>Educational qualification</h3>
-<table border="2">
-<tr><th>Examination</th><th>Session</th><th>Status</th><th>Result</th><th>Institution</th></tr>
-<tr><td>B.Sc</td><td>2024-2028</td><td>Ongoing</td><td>3.5/4</td><td>University of Rajshahi</td></tr>
-<tr><td>HSC</td><td>2021-2022</td><td>Passed</td><td>4.75/5</td><td>Dhaka Education Board</td></tr>
-<tr><td>SSC</td><td>2019-2022</td><td>Passed</td><td>4.78/5</td><td>Dhaka Education Board</td></tr>
+                <a class="nav-link" href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-</table>
+    <!-- Hero -->
+    <section class="hero text-center">
+        <div class="container">
+           
+            <h1>My name is John Doe</h1>
+            <p>Computer Science and Engineering  Student</p>
+
+                   </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" align="center">
+        <h2>About Me</h2>
+          <img src="download.jpg"   >
+   
+        <div  >
+            
+            I am a student interested in Web Development,
+            Algorithms, and Competitive Programming.
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="container my-5">
+        <h2>Skills</h2>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>HTML</h5>
+                        <p>Semantic markup and layouts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>CSS</h5>
+                        <p>Responsive design and styling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>C++</h5>
+                        <p>Problem solving and algorithms.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="container my-5">
+        <h2>Projects</h2>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Portfolio Website</h5>
+                        <p>Personal responsive portfolio.</p>
+                        <a href="">My github.io static website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Student Management System</h5>
+                        <p>C++ console application.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+<! ggg>
+<section id="Education" class="container my-5">
+
+         <h3>Educational qualification</h3>
+
+         <div class="card">
+         <table border="2" cellspacing="2" cellpadding="2">
+         <tr><th>Examination</th><th>Session</th><th>Status</th><th>Result</th><th>Institution</th></tr>
+         <tr><td>B.Sc</td><td>2024-2028</td><td>Ongoing</td><td>3.5/4</td><td>University of Rajshahi</td></tr>
+         <tr><td>HSC</td><td>2021-2022</td><td>Passed</td><td>4.75/5</td><td>Dhaka Education Board</td></tr>
+         <tr><td>SSC</td><td>2019-2022</td><td>Passed</td><td>4.78/5</td><td>Dhaka Education Board</td></tr>
+
+         </table>
+          </div>
+
+    </section  >
+
+     <section id="hobies" class="container my-5">
+        <h2>hobies</h2>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Cycling</h5>
+                        
+ <img src="cycling_22march2026.jpg" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;" alt="My cycling hobby">
+                        <p>My cycling </p>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </section>
+
+    
+
+    <!-- Contact -->
+    <section id="contact" class="container my-5">
+        <h2>Contact</h2>
+
+        <p>Email: yourmail@gmail.com</p>
+        <p>GitHub: github.com/yourname</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Your Name</p>
+    </footer>
+
 </body>
-
-<h3>Hobbies :</h3>
-<ol>
-<li>Gardening</li>
-<li>Cycling</li>
-</ol>
-
-<img src="cycling_22march2026.jpg" height="400" width="300">
-<p>This is my cycling in loop around the Rajshahi city</p>
-<h2>Thank you </h2>
-
 </html>
